@@ -2,8 +2,8 @@ package programmer_zaman_now.belajar_java_datetime;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.Month;
 
 public class LocalDateTimeTest {
@@ -17,5 +17,52 @@ public class LocalDateTimeTest {
         System.out.println(localDateTime1);
         System.out.println(localDateTime2);
         System.out.println(localDateTime3);
+    }
+
+    @Test
+    void with() {
+        LocalDateTime localDateTime1 = LocalDateTime.now();
+        LocalDateTime localDateTime2 = localDateTime1.withYear(2020).withMonth(1);
+        LocalDateTime localDateTime3 = localDateTime1.withYear(2020).withHour(9);
+
+        System.out.println(localDateTime1);
+        System.out.println(localDateTime2);
+        System.out.println(localDateTime3);
+    }
+
+    @Test
+    void modify() {
+        LocalDateTime localDateTime1 = LocalDateTime.now();
+        LocalDateTime localDateTime2 = localDateTime1.plusYears(5).plusHours(5);
+        LocalDateTime localDateTime3 = localDateTime1.minusYears(5).minusHours(5);
+
+        System.out.println(localDateTime1);
+        System.out.println(localDateTime2);
+        System.out.println(localDateTime3);
+    }
+
+    @Test
+    void get() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        System.out.println(localDateTime.getYear());
+        System.out.println(localDateTime.getMonth());
+        System.out.println(localDateTime.getDayOfMonth());
+        System.out.println(localDateTime.getHour());
+        System.out.println(localDateTime.getMinute());
+        System.out.println(localDateTime.getSecond());
+        System.out.println(localDateTime.getNano());
+    }
+
+    @Test
+    void date() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println(localDateTime);
+
+        LocalDate localDate = localDateTime.toLocalDate();
+        System.out.println(localDate);
+
+        LocalDateTime result = localDate.atTime(10,10,10,10);
+        System.out.println(result);
     }
 }
