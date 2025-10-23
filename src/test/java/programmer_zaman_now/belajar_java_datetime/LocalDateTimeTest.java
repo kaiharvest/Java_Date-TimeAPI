@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 
 public class LocalDateTimeTest {
@@ -63,6 +64,18 @@ public class LocalDateTimeTest {
         System.out.println(localDate);
 
         LocalDateTime result = localDate.atTime(10,10,10,10);
+        System.out.println(result);
+    }
+
+    @Test
+    void time() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println(localDateTime);
+
+        LocalTime localTime = localDateTime.toLocalTime();
+        System.out.println(localTime);
+
+        LocalDateTime result = localTime.atDate(LocalDate.now());
         System.out.println(result);
     }
 }
