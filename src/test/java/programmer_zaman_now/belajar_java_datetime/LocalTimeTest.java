@@ -38,4 +38,14 @@ public class LocalTimeTest {
         System.out.println(localTime2);
         System.out.println(localTime3);
     }
+
+    @Test
+    void get() {
+        LocalTime localTime1 = LocalTime.now();
+
+        System.out.println(localTime1.getHour());
+        System.out.println(localTime1.getMinute());
+        System.out.println(localTime1.getSecond());
+        System.out.println(localTime1.getNano());
+    }
 }
