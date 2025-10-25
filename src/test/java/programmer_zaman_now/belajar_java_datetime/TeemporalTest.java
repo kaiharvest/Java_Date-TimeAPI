@@ -3,8 +3,9 @@ package programmer_zaman_now.belajar_java_datetime;
 import org.junit.jupiter.api.Test;
 
 import java.time.*;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
+import java.time.temporal.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeemporalTest {
 
@@ -31,5 +32,63 @@ public class TeemporalTest {
     void temporalUint() {
         long temporal = ChronoUnit.DAYS.between(LocalDateTime.now(), LocalDateTime.now().plusHours(10));
         System.out.println(temporal);
+    }
+
+    @Test
+    void temporalField() {
+        Temporal temporal = LocalDateTime.now();
+
+        System.out.println(temporal.get(ChronoField.YEAR));
+        System.out.println(temporal.get(ChronoField.MONTH_OF_YEAR));
+        System.out.println(temporal.get(ChronoField.DAY_OF_MONTH));
+        System.out.println(temporal.get(ChronoField.HOUR_OF_DAY));
+        System.out.println(temporal.get(ChronoField.MINUTE_OF_DAY));
+        System.out.println(temporal.get(ChronoField.MINUTE_OF_HOUR));
+        System.out.println(temporal.get(ChronoField.SECOND_OF_MINUTE));
+        System.out.println(temporal.get(ChronoField.MILLI_OF_SECOND));
+        System.out.println(temporal.get(ChronoField.NANO_OF_SECOND));
+    }
+
+    @Test
+    void temporalQuery() {
+        Temporal temporal = LocalDateTime.now();
+
+        List<Integer> integers = temporal.query(new TemporalQuery<ArrayList<Integer>>() {
+
+            @Override
+            public ArrayList<Integer> queryFrom(TemporalAccessor temporal) {
+                ArrayList<Integer> list = new ArrayList<>();
+
+                list.add(temporal.get(ChronoField.YEAR));
+                list.add(temporal.get(ChronoField.MONTH_OF_YEAR));
+                list.add(temporal.get(ChronoField.DAY_OF_MONTH));
+
+                return list;
+            }
+        });
+        System.out.println(integers);
+    }
+
+    @Test
+    void temporalAdjuster() {
+        Temporal temporal1 = LocalDate.now();
+        System.out.println(temporal1);
+
+        Temporal temporal2 = temporal1.with(new TemporalAdjuster() {
+            @Override
+            public Temporal adjustInto(Temporal temporal) {
+                return LocalDate.of(
+                        temporal.get(ChronoField.YEAR),
+                        temporal.get(ChronoField.MONTH_OF_YEAR),
+                        1
+                );
+            }
+        });
+        System.out.println(temporal2);
+
+        Temporal temporal3 = temporal1.with(TemporalAdjusters.firstDayOfMonth());
+        System.out.println(temporal3);
+        Temporal temporal4 = temporal1.with(TemporalAdjusters.lastDayOfMonth());
+        System.out.println(temporal4);
     }
 }
